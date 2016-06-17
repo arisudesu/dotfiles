@@ -1,0 +1,18 @@
+unset GDMSESSION
+unset GDM_LANG
+
+
+export XDG_CONFIG_HOME="$HOME"/.config
+
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+export LESSHISTFILE=-
+export XAUTHORITY="$XDG_RUNTIME_DIR"/X11/Xauthority
+
+mkdir -p "$XDG_RUNTIME_DIR"/X11/
+mv "$HOME"/.Xauthority "$XAUTHORITY"
+
+xrdb -merge "$XDG_CONFIG_HOME"/Xresources
+
+export LC_COLLATE=C
+export QT_STYLE_OVERRIDE=gtk
+export QUOTING_STYLE=literal
