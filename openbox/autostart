@@ -1,0 +1,16 @@
+setxkbmap -layout "us,ru" -option "grp:alt_shift_toggle"
+xkbcomp $DISPLAY - | egrep -v "group . = AltGr;" | xkbcomp - $DISPLAY
+
+xdg-user-dirs-update
+
+nitrogen --restore &
+light-locker &
+compton &
+
+if [ $DESKTOP_SESSION != "awesome" ]; then
+    tint2 &
+fi
+
+sleep 1
+volumeicon &
+telegram-desktop -startintray &
