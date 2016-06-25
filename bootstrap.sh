@@ -1,5 +1,6 @@
 files="xprofile     .xprofile
-       compton.conf .config/compton.conf"
+       compton.conf .config/compton.conf
+       tint2rc      .config/tint2/tint2rc"
 
 # ---------------------------------------
 
