@@ -7,5 +7,8 @@ dotfiledir=$(dirname "$0")
 
 echo "$files" | while read file target
 do
-    ln -sf "$dotfiledir/$file" "$HOME/$target"
+    if [ ! -d $(dirname "$HOME/$target") ]; then
+        mkdir -p $(dirname "$HOME/$target")
+    fi
+    ln -rsf "$dotfiledir/$file" "$HOME/$target"
 done
