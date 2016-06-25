@@ -1,6 +1,7 @@
-files="xprofile     .xprofile
-       compton.conf .config/compton.conf
-       tint2rc      .config/tint2/tint2rc"
+files="x11/xprofile     .xprofile
+       x11/xresources   .config/Xresources
+       compton.conf     .config/compton.conf
+       tint2rc          .config/tint2/tint2rc"
 
 # ---------------------------------------
 
