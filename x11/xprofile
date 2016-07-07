@@ -17,3 +17,4 @@ export LC_COLLATE=C
 export QT_STYLE_OVERRIDE=gtk
 export QUOTING_STYLE=literal
 export STEAM_RUNTIME=0
+export FT2_SUBPIXEL_HINTING=0

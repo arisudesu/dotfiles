@@ -3,6 +3,7 @@ XTerm*metaSendsEscape: true
 XTerm*faceName: xft:fixed:size=12:antialias=false
 XTerm*font: 7x13
 XTerm*borderWidth: 0
+XTerm*selectToClipboard: true
 
 *.foreground:   #c2c2b0
 *.background:   #222222
