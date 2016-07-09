@@ -7,7 +7,7 @@ nitrogen --restore &
 light-locker &
 compton &
 
-if [ $DESKTOP_SESSION != "awesome" ]; then
+if [ $DESKTOP_SESSION == "openbox" ]; then
     tint2 &
 fi
 
