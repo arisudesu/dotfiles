@@ -9,7 +9,7 @@ EDITOR="${EDITOR:-geany}"
 pipe_begin
     section "Applications"
     # item --icon "/usr/share/icons/hicolor/scalable/apps/blender.svg" "Blender" blender
-    item --icon "/usr/share/pixmaps/android-studio.png" "Android Studio" android-studio
+    # item --icon "/usr/share/pixmaps/android-studio.png" "Android Studio" android-studio
     item --icon "/usr/share/pixmaps/pycharm.png" "PyCharm" pycharm
     item --icon "/usr/share/icons/hicolor/24x24/apps/QtProject-qtcreator.png" "Qt Creator" qtcreator
 
@@ -47,7 +47,7 @@ pipe_begin
 
 	section "Games"
 	item "Minecraft" java -jar "Documents/TLauncher.jar"
-	item --icon "/usr/share/pixmaps/openttd.32.xpm" "OpenTTD" openttd
+	# item --icon "/usr/share/pixmaps/openttd.32.xpm" "OpenTTD" openttd
 	# item --icon "/usr/share/pixmaps/steam.png" "Steam" steam
 	
     # section "Places"
