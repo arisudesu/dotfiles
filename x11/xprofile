@@ -16,5 +16,11 @@ xrdb -merge $XDG_CONFIG_HOME/Xresources
 export LC_COLLATE=C
 export QT_STYLE_OVERRIDE=gtk2
 export QUOTING_STYLE=literal
-export STEAM_RUNTIME=0
+export STEAM_FRAME_FORCE_CLOSE=1
 export FT2_SUBPIXEL_HINTING=1
+export GTK_OVERLAY_SCROLLING=0
+
+export LESS="-NR"
+export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
+
+export EDITOR=nano
