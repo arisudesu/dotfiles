@@ -1,26 +1,12 @@
--- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
--- Widget and layout library
 local wibox = require("wibox")
--- Theme handling library
 local beautiful = require("beautiful")
--- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
--- {{{ Error handling
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
-if awesome.startup_errors then
-    naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
-end
 
--- Handle runtime errors after startup
 do
     local in_error = false
     awesome.connect_signal("debug::error", function (err)
@@ -34,47 +20,38 @@ do
         in_error = false
     end)
 end
--- }}}
 
--- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
 
 beautiful.init(awful.util.get_themes_dir() .. "xresources/theme.lua")
-beautiful.wallpaper = os.getenv('HOME') .. "/.config/awesome/bg"
+beautiful.wallpaper = awful.util.get_configuration_dir() .. "bg"
 beautiful.font = "xos4 Terminus 8"
 
--- This is used later as the default terminal and editor to run.
+
 terminal = "xterm"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
--- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.corner.nw,
+    -- awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.top,
+    -- awful.layout.suit.fair,
+    -- awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.spiral,
+    -- awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.max,
+    -- awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.magnifier,
+    -- awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
 }
--- }}}
 
 -- {{{ Helper functions
 local function client_menu_toggle_fn()
@@ -91,44 +68,61 @@ local function client_menu_toggle_fn()
 end
 -- }}}
 
--- {{{ Menu
--- Create a launcher widget and a main menu
-myawesomemenu = {
-   { "hotkeys", function() return false, hotkeys_popup.show_help end},
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end}
+
+awesome_menu = {
+    { "hotkeys",     function() return false, hotkeys_popup.show_help end },
+    { "manual",      terminal .. " -e man awesome" },
+    { "edit config", editor_cmd .. " " .. awesome.conffile },
+    { "restart",     awesome.restart },
+    -- { "quit", function() awesome.quit() end }
 }
 
-mymainmenu = awful.menu({ items = {
-                                    { "xterm", terminal },
-                                    { "firefox", "firefox" },
-                                    { "telegram", "telegram-desktop" },
-                                    { "alsamixer", "xterm -e alsamixer" },
-                                    { "mocp", "xterm -e mocp" },
-                                    { "geany", "geany" },
-                                    { "htop", "xterm -e htop" },
-                                    { "ranger", "xterm -e ranger" },
-                                    { "lock screen", "light-locker-command -l" },
-                                    { "session",
-                                      {
-                                        { "exit", function() awesome.quit() end },
-                                        { "suspend", "systemctl suspend" },
-                                        { "reboot", "systemctl reboot" },
-                                        { "shutdown", "systemctl shutdown" },
-                                      }
-                                    },
-                                    { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                  }
-                        })
+session_menu = {
+    { "exit",      function() awesome.quit() end },
+    { "suspend",   "systemctl suspend" },
+    { "hibernate", "systemctl hibernate" },
+    { "reboot",    "systemctl reboot" },
+    { "shutdown",  "systemctl poweroff" },
+}
+
+mymainmenu = awful.menu {
+    items = {
+        -- gui apps
+        { "xterm",       terminal,           "/usr/share/pixmaps/xterm-color_48x48.xpm" },
+        { "clion",       "clion",            "/usr/share/pixmaps/clion.svg" },
+        { "discord",     "discord",          "/usr/share/pixmaps/discord.png" },
+        { "firefox",     "firefox",          "/usr/share/icons/hicolor/32x32/apps/firefox.png" },
+        { "geany",       "geany",            "/usr/share/icons/hicolor/32x32/apps/geany.png" },
+        { "gimp",        "gimp",             "/usr/share/icons/hicolor/32x32/apps/gimp.png" },
+        { "idea",        "idea.sh",          "/usr/share/pixmaps/idea.png" },
+        { "pycharm",     "pycharm",          "/usr/share/pixmaps/pycharm.png" },
+        { "qbittorrent", "qbittorrent",      "/usr/share/icons/hicolor/32x32/apps/qbittorrent.png"},
+        { "steam",       "steam-native",     "/usr/share/icons/hicolor/32x32/apps/steam.png" },
+        { "telegram",    "telegram-desktop", "/usr/share/icons/hicolor/32x32/apps/telegram-desktop.png" },
+        { "thunderbird", "thunderbird",      "/usr/share/icons/hicolor/32x32/apps/thunderbird.png" },
+        { "vacuum",      "vacuum",           "/usr/share/pixmaps/vacuum.png" },
+        { "virtualbox",  "virtualbox",       "/usr/share/pixmaps/VBox.png" },
+        { "vlc",         "vlc",              "/usr/share/icons/hicolor/32x32/apps/vlc.png" },
+
+        -- term apps
+        { "alsamixer", terminal .. " -e alsamixer" },
+        { "mpd",       terminal .. " -e ncpmcpp" },
+        { "htop",      terminal .. " -e htop" },
+        { "ranger",    terminal .. " -e ranger" },
+
+        -- useful actions
+        { "scrot", {
+            { "screen", "scrot -d5" },
+            { "window", "scrot -d5 -u" },
+            { "region", "scrot -s" }
+        } },
+        { "session", session_menu },
+        { "awesome", awesome_menu, beautiful.awesome_icon },
+    }
+}
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
-
--- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
 
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
@@ -216,7 +210,14 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
+    s.mytasklist = awful.widget.tasklist(
+        s,
+        awful.widget.tasklist.filter.currenttags,
+        tasklist_buttons,
+        {},
+        nil,
+        wibox.layout.flex.horizontal()
+    )
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
@@ -345,10 +346,7 @@ globalkeys = awful.util.table.join(
                     history_path = awful.util.get_cache_dir() .. "/history_eval"
                   }
               end,
-              {description = "lua execute prompt", group = "awesome"}),
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "lua execute prompt", group = "awesome"})
 )
 
 clientkeys = awful.util.table.join(
@@ -495,7 +493,7 @@ awful.rules.rules = {
 }
 -- }}}
 
--- {{{ Signals
+
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
@@ -525,30 +523,33 @@ client.connect_signal("request::titlebars", function(c)
             awful.mouse.client.resize(c)
         end)
     )
-
-    awful.titlebar(c) : setup {
-        { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
+    awful.titlebar(c, { position = "right" }) : setup {
+        {
+            { -- Left
+                awful.titlebar.widget.iconwidget(c),
+                buttons = buttons,
+                layout  = wibox.layout.fixed.horizontal
             },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
+            { -- Middle
+                { -- Title
+                    align  = "center",
+                    widget = awful.titlebar.widget.titlewidget(c)
+                },
+                buttons = buttons,
+                layout  = wibox.layout.flex.horizontal
+            },
+            { -- Right
+                awful.titlebar.widget.floatingbutton (c),
+                awful.titlebar.widget.maximizedbutton(c),
+                awful.titlebar.widget.stickybutton   (c),
+                awful.titlebar.widget.ontopbutton    (c),
+                awful.titlebar.widget.closebutton    (c),
+                layout = wibox.layout.fixed.horizontal
+            },
+            layout = wibox.layout.align.horizontal,
         },
-        { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
+        widget = wibox.container.rotate,
+        direction = "west"
     }
 end)
 
@@ -562,4 +563,3 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
--- }}}

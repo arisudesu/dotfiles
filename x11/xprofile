@@ -5,7 +5,6 @@ unset GDM_LANG
 export XDG_CONFIG_HOME=$HOME/.config
 
 export GTK2_RC_FILES=$XDG_CONFIG_HOME/gtk-2.0/gtkrc
-export LESSHISTFILE=-
 export XAUTHORITY=$XDG_RUNTIME_DIR/X11/Xauthority
 
 mkdir -p $XDG_RUNTIME_DIR/X11/
@@ -21,6 +20,25 @@ export FT2_SUBPIXEL_HINTING=1
 export GTK_OVERLAY_SCROLLING=0
 
 export LESS="-NR"
-export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
+export LESSOPEN="| highlight --out-format xterm256 %s"
+export LESSHISTFILE=-
 
 export EDITOR=nano
+
+pgrep -u $USER ssh-agent || eval `ssh-agent -s`
+
+###########
+# Autostart
+###########
+
+setxkbmap -layout "us,ru" -option "grp:alt_shift_toggle"
+xkbcomp $DISPLAY - | egrep -v "group . = AltGr;" | xkbcomp - $DISPLAY
+
+((
+  light-locker &
+  compton &
+  volumeicon &
+
+  sleep 2
+  telegram-desktop -startintray &
+)&)
