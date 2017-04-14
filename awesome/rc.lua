@@ -74,15 +74,15 @@ awesome_menu = {
     { "manual",      terminal .. " -e man awesome" },
     { "edit config", editor_cmd .. " " .. awesome.conffile },
     { "restart",     awesome.restart },
-    -- { "quit", function() awesome.quit() end }
 }
 
 session_menu = {
-    { "exit",      function() awesome.quit() end },
-    { "suspend",   "systemctl suspend" },
-    { "hibernate", "systemctl hibernate" },
-    { "reboot",    "systemctl reboot" },
-    { "shutdown",  "systemctl poweroff" },
+    { "exit",         function() awesome.quit() end },
+    { "suspend",      "systemctl suspend" },
+    { "hibernate",    "systemctl hibernate" },
+    { "hybrid sleep", "systemctl hybrid-sleep" },
+    { "reboot",       "systemctl reboot" },
+    { "poweroff",     "systemctl poweroff" },
 }
 
 mymainmenu = awful.menu {
@@ -487,6 +487,15 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = true }
     },
 
+    -- Telegram
+    { rule = { name = "Telegram" },
+      properties = {
+        floating = true,
+        x = 5, y = 25,
+        width = 660, height = 1045,
+        dockable = true
+      }
+    },
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
