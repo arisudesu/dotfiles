@@ -1,7 +1,8 @@
 files="x11/xprofile     .xprofile
        x11/xresources   .config/Xresources
        compton.conf     .config/compton.conf
-       awesome/rc.lua   .config/awesome/rc.lua"
+       awesome/rc.lua   .config/awesome/rc.lua
+       nanorc           .nanorc"
 
 # ---------------------------------------
 

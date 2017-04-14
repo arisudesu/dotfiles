@@ -23,6 +23,7 @@ export LESS="-NR"
 export LESSOPEN="| highlight --out-format xterm256 %s"
 export LESSHISTFILE=-
 
+export MANPAGER="less -n"
 export EDITOR=nano
 
 pgrep -u $USER ssh-agent || eval `ssh-agent -s`
