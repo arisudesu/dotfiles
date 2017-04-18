@@ -1,17 +1,18 @@
-files="x11/xprofile     .xprofile
-       x11/xresources   .config/Xresources
-       compton.conf     .config/compton.conf
-       awesome/rc.lua   .config/awesome/rc.lua
-       nanorc           .nanorc"
+#!/bin/bash
+
+FILES=("x11/xprofile    $HOME/.xprofile"
+       "x11/xresources  $HOME/.config/Xresources"
+       "compton.conf    $HOME/.config/compton.conf"
+       "awesome/rc.lua  $HOME/.config/awesome/rc.lua"
+       "nanorc          $HOME/.nanorc")
 
 # ---------------------------------------
 
-dotfiledir=$(dirname "$0")
+srcdir=$(dirname "$0")
 
-echo "$files" | while read file target
+for line in "${FILES[@]}"
 do
-    if [ ! -d $(dirname "$HOME/$target") ]; then
-        mkdir -p $(dirname "$HOME/$target")
-    fi
-    ln -rsf "$dotfiledir/$file" "$HOME/$target"
+    read source target <<< "$line"
+    mkdir -p "$(dirname "$target")"
+    ln -rsf "$srcdir/$source" "$target"
 done
