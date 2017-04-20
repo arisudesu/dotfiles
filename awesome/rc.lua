@@ -24,8 +24,7 @@ end
 
 beautiful.init(awful.util.get_themes_dir() .. "xresources/theme.lua")
 beautiful.wallpaper = awful.util.get_configuration_dir() .. "bg"
-beautiful.font = "xos4 Terminus 8"
-
+beautiful.font = "Noto Sans 8"
 
 terminal = "xterm"
 editor = os.getenv("EDITOR") or "nano"
