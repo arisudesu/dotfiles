@@ -7,6 +7,7 @@ export QUOTING_STYLE=literal
 export STEAM_FRAME_FORCE_CLOSE=1
 export FT2_SUBPIXEL_HINTING=1
 export GTK_OVERLAY_SCROLLING=0
+export NO_AT_BRIDGE=1
 
 export LESS="-NR"
 export LESSOPEN="| highlight -q --out-format xterm256 %s"
@@ -27,9 +28,6 @@ xrdb -merge $XDG_CONFIG_HOME/Xresources
 ###########
 # Autostart
 ###########
-
-pgrep -u $USER ssh-agent || eval `ssh-agent -s`
-
 ((
     light-locker &
     compton &
